@@ -1,1 +1,477 @@
 
+
+
+### 1. Customer Support Chatbot — Models
+
+A company wants a chatbot that answers customer questions.
+
+Build an application that:
+
+* Accepts a customer question.
+* Sends it to a LangChain chat model.
+* Returns the answer.
+* Allows the user to change the model temperature.
+* Compare the response at `temperature=0` and `temperature=1`.
+
+**Problem to solve:** How does changing model configuration affect the chatbot?
+
+---
+
+### 2. AI Study Assistant — ChatGoogleGenerativeAI
+
+Build a study assistant using `ChatGoogleGenerativeAI`.
+
+Input:
+
+```text
+Topic: Operating Systems
+Level: Beginner
+```
+
+The application should generate:
+
+* Simple explanation
+* 5 important concepts
+* 5 interview questions
+* 5 quiz questions
+
+**Bonus:** Let the user select Beginner / Intermediate / Advanced.
+
+---
+
+### 3. Open-Source Summarizer — HuggingFaceEndpoint
+
+A company receives hundreds of customer complaints every day.
+
+Build a summarizer using a **Hugging Face endpoint**.
+
+Input:
+
+```text
+Customer complaint
+```
+
+Output:
+
+```text
+Summary
+Main problem
+Customer sentiment
+Required action
+```
+
+Then compare the result with Gemini.
+
+**Challenge:** Handle very long complaints without simply passing the entire text blindly.
+
+---
+
+### 4. Research Paper Finder — Embeddings ⭐
+
+You have 20 research-paper titles and abstracts.
+
+User enters:
+
+```text
+"How can LLMs improve medical diagnosis?"
+```
+
+Your system should:
+
+```text
+Query
+ ↓
+Embedding
+ ↓
+Compare with paper embeddings
+ ↓
+Top 5 relevant papers
+```
+
+**Requirements:**
+
+* Generate embeddings.
+* Calculate similarity.
+* Return top 5.
+* Display similarity scores.
+
+**Challenge:** Explain why the retrieved papers are semantically similar.
+
+---
+
+### 5. Duplicate Question Detector — Embeddings ⭐
+
+A company has thousands of support questions.
+
+For example:
+
+```text
+"How can I reset my password?"
+
+"I forgot my password. How do I change it?"
+```
+
+The system should determine whether they represent the **same problem**.
+
+Build:
+
+* Embedding generation
+* Similarity calculation
+* Threshold-based duplicate detection
+
+Example:
+
+```text
+Similarity > 0.85 → Probably duplicate
+Similarity < 0.50 → Probably different
+```
+
+Don't blindly assume those thresholds are universally correct—experiment with your dataset.
+
+---
+
+### 6. Resume Analyzer — Structured Output ⭐⭐⭐
+
+Build an AI resume analyzer.
+
+Input:
+
+```text
+Resume text
+```
+
+The LLM must return structured data:
+
+```text
+{
+    "name": "...",
+    "skills": [],
+    "education": [],
+    "experience": [],
+    "projects": [],
+    "missing_skills": []
+}
+```
+
+**Challenge:** What happens when the resume doesn't contain experience?
+
+Your application should still return a valid structure.
+
+---
+
+### 7. Job Description Analyzer — Structured Output
+
+Build a system that takes:
+
+```text
+Resume
++
+Job Description
+```
+
+and returns:
+
+```text
+{
+    "matching_skills": [],
+    "missing_skills": [],
+    "experience_match": "...",
+    "recommendations": []
+}
+```
+
+**Challenge:** Make sure the LLM doesn't return random prose instead of the expected schema.
+
+---
+
+### 8. AI Interview Generator — Prompt Templates
+
+Build an interview-question generator.
+
+Inputs:
+
+```text
+Technology: LangChain
+Experience: Fresher
+Difficulty: Medium
+Number of questions: 10
+```
+
+Create a dynamic prompt that generates the requested questions.
+
+Then change the prompt so that the model generates:
+
+```text
+Question
+Expected concepts
+Ideal answer
+Follow-up question
+```
+
+**Challenge:** The same prompt should work for Python, Java, RAG, LangGraph, etc.
+
+---
+
+### 9. Multi-Step Content Generator — Pipeline
+
+A marketing team wants to create LinkedIn posts automatically.
+
+Build:
+
+```text
+Topic
+ ↓
+Generate explanation
+ ↓
+Generate key points
+ ↓
+Generate LinkedIn post
+ ↓
+Generate hashtags
+```
+
+Each stage should use LangChain components.
+
+**Challenge:** Pass the output of one stage into the next stage correctly.
+
+---
+
+### 10. AI Research Assistant — RunnableParallel ⭐⭐⭐
+
+Build a research assistant.
+
+User:
+
+```text
+"Explain Retrieval-Augmented Generation"
+```
+
+At the same time, generate:
+
+```text
+                    ┌→ Simple explanation
+Question → Parallel ├→ Technical explanation
+                    └→ Interview questions
+```
+
+Use `RunnableParallel`.
+
+Then combine all three outputs into one final response.
+
+**Challenge:** Understand why these tasks can run independently.
+
+---
+
+### 11. Data Cleaning Pipeline — RunnableLambda
+
+You receive messy customer information:
+
+```text
+"  SHARAN PRASAD "
+"sharan@gmail.com "
+" HYDERABAD"
+```
+
+Create a Runnable pipeline that:
+
+```text
+Raw data
+ ↓
+Clean whitespace
+ ↓
+Normalize case
+ ↓
+Validate email
+ ↓
+Create structured output
+```
+
+Use `RunnableLambda` for your custom transformations.
+
+**Challenge:** Handle invalid email addresses.
+
+---
+
+### 12. Smart Calculator — Tools ⭐⭐⭐⭐⭐
+
+Build an AI calculator.
+
+The user can ask:
+
+```text
+"What is 25% of 840?"
+
+"Calculate EMI for a loan."
+
+"Convert 10 kilometers to miles."
+```
+
+Create separate tools:
+
+```text
+percentage_calculator()
+emi_calculator()
+unit_converter()
+```
+
+The LLM should decide which tool to call.
+
+**Challenge:** The LLM should not perform the calculation itself when a calculator tool is available.
+
+---
+
+### 13. Employee Information Assistant — Tools ⭐⭐⭐⭐⭐
+
+Create a fake employee database:
+
+```text
+employees.csv
+```
+
+Example:
+
+```text
+ID | Name | Department | Salary | Experience
+```
+
+Create tools:
+
+```text
+find_employee()
+get_department()
+get_experience()
+```
+
+User can ask:
+
+> "What department does employee 104 work in?"
+
+or
+
+> "Find employees with more than 3 years of experience."
+
+The LLM should select and call the appropriate tool.
+
+---
+
+### 14. AI Travel Assistant — Multiple Tools ⭐⭐⭐⭐⭐
+
+Build a travel assistant with:
+
+```text
+weather_tool
+currency_tool
+calculator_tool
+```
+
+User:
+
+> "I'm travelling to Dubai for 5 days. How much is ₹50,000 in AED and what's the weather?"
+
+The system should determine which tools are needed.
+
+Architecture:
+
+```text
+User
+ ↓
+LLM
+ ↓
+Decide required tools
+ ↓
+┌───────────────┐
+│ Weather       │
+│ Currency      │
+│ Calculator    │
+└───────────────┘
+ ↓
+Tool results
+ ↓
+LLM
+ ↓
+Final response
+```
+
+**Challenge:** One user request may require **multiple tools**.
+
+---
+
+### 15. 🔥 Mini Production Problem — AI Learning Planner
+
+This is the final challenge.
+
+Build an AI learning assistant where the user says:
+
+> "I want to learn LangChain in 10 days."
+
+Your application should:
+
+```text
+User
+ ↓
+Prompt
+ ↓
+Chat Model
+ ↓
+Structured Learning Plan
+ ↓
+Embedding-based Resource Search
+ ↓
+Tools
+ ↓
+Final Learning Plan
+```
+
+The output should contain:
+
+```text
+Day 1
+Topic
+Concepts
+Resources
+Practice task
+
+Day 2
+Topic
+Concepts
+Resources
+Practice task
+
+...
+
+Day 10
+Topic
+Concepts
+Resources
+Practice task
+```
+
+### Constraints
+
+You should use at least:
+
+* ✅ ChatGoogleGenerativeAI
+* ✅ Prompt templates
+* ✅ Structured output
+* ✅ Embeddings
+* ✅ Runnable/Pipeline
+* ✅ RunnableParallel or RunnableLambda
+* ✅ At least 2 tools
+
+---
+
+ ↓
+Chat Model
+ ↓
+Tool selection
+ ↓
+Calculator Tool
+ ↓
+Tool result
+ ↓
+Chat Model
+ ↓
+Final answer
+```
+
+That's much closer to how you'll actually use LangChain in **AI Engineer / Agentic AI projects** than memorizing APIs.
